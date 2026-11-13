@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinación de Campus: Liceo de Apodaca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estética de Plano Arquitectónico Escolar (Blueprint Moderno) */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #061326;
+            color: #e2f1f8;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        .font-blueprint {
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        .blueprint-glow {
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.22), inset 0 0 24px rgba(14, 165, 233, 0.1);
+        }
+        .blueprint-border {
+            border: 1px solid rgba(56, 189, 248, 0.35);
+        }
+        .text-glow-sky {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
+        }
+        .text-glow-amber {
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.55);
+        }
+        canvas {
+            touch-action: none;
+            cursor: crosshair;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.85; }
+            50% { transform: scale(1.05); opacity: 0.45; }
+            100% { transform: scale(0.95); opacity: 0.85; }
+        }
+        .animate-blueprint-pulse {
+            animation: pulse-ring 3s infinite ease-in-out;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #071933;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0284c7;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#061326] text-slate-100">
+
+    <!-- ==================== PANTALLA DE INICIO ==================== -->
+    <div id="start-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-[#051021]/95 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="max-w-2xl w-full bg-[#0a1e3c] blueprint-border blueprint-glow rounded-2xl p-6 sm:p-8 my-auto">
+            <div class="flex items-center justify-center gap-3.5 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-sky-500/20 border border-sky-400 flex items-center justify-center animate-blueprint-pulse">
+                    <svg class="w-7 h-7 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xs font-blueprint tracking-widest text-amber-400 uppercase font-bold block">Liceo de Apodaca • Matemáticas 7mo Grado</span>
+                    <h1 class="text-2xl sm:text-3xl font-bold font-blueprint text-white text-glow-sky">LICEO DE APODACA: PLANO A ESCALA</h1>
+                </div>
+            </div>
+
+            <div class="bg-[#051021]/90 border border-sky-500/40 rounded-xl p-4 mb-5 flex items-start gap-3.5">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 font-blueprint font-bold flex items-center justify-center shrink-0 text-sm shadow-md">
+                    TR
+                </div>
+                <div class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                    <span class="text-amber-400 font-blueprint font-bold uppercase tracking-wider block mb-0.5">Mensaje de Teacher Raúl:</span>
+                    "¡Hola, equipo de 7mo grado! Les he preparado un reto práctico de <strong class="text-sky-300">20 misiones aleatorias</strong> por todo nuestro campus del <strong class="text-white">Liceo de Apodaca</strong>. Usen la <strong class="text-amber-300">regla virtual graduada</strong> para medir el plano y calculen las distancias reales aplicando cada escala (directa, alcance limitado y escala inversa). ¡Demuestren su precisión matemática!"
+                </div>
+            </div>
+
+            <!-- Guía rápida de juego -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-xs sm:text-sm">
+                <div class="bg-[#06152b] p-3.5 rounded-xl border border-sky-800/60">
+                    <div class="text-sky-400 font-blueprint font-bold mb-1">1. MIDE EN EL PLANO</div>
+                    <p class="text-slate-400">Arrastra de un punto a otro para desplegar la regla virtual en centímetros (cm).</p>
+                </div>
+                <div class="bg-[#06152b] p-3.5 rounded-xl border border-sky-800/60">
+                    <div class="text-amber-400 font-blueprint font-bold mb-1">2. APLICA LA ESCALA</div>
+                    <p class="text-slate-400">Convierte centímetros a metros reales (o viceversa) según la escala activa del plano.</p>
+                </div>
+                <div class="bg-[#06152b] p-3.5 rounded-xl border border-sky-800/60">
+                    <div class="text-emerald-400 font-blueprint font-bold mb-1">3. COMPLETA 20 RETOS</div>
+                    <p class="text-slate-400">Supera las 20 misiones aleatorias del campus y obtén tu reporte de evaluación.</p>
+                </div>
+            </div>
+
+            <!-- Registro de Alumno / Equipo -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                <div class="sm:col-span-2">
+                    <label for="student-name" class="block text-xs font-blueprint uppercase tracking-wider text-sky-300 mb-2">
+                        Nombre del Alumno o Equipo:
+                    </label>
+                    <input type="text" id="student-name" placeholder="Ej. Mateo Garza / Equipo Alfa" maxlength="40"
+                        class="w-full bg-[#051021] border border-sky-500/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 transition">
+                </div>
+                <div>
+                    <label for="student-group" class="block text-xs font-blueprint uppercase tracking-wider text-sky-300 mb-2">
+                        Grupo:
+                    </label>
+                    <input type="text" id="student-group" placeholder="Ej. 7° A / 7° B" maxlength="15"
+                        class="w-full bg-[#051021] border border-sky-500/50 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/20 transition">
+                </div>
+            </div>
+
+            <button onclick="startGame()" 
+                class="w-full py-3.5 px-6 bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-blueprint font-bold text-lg rounded-xl shadow-lg shadow-sky-500/25 transition transform active:scale-[0.99] flex items-center justify-center gap-2">
+                <span>ACEPTAR RETO DE TEACHER RAÚL</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== BARRA SUPERIOR (HUD) ==================== -->
+    <header class="bg-[#091c38] border-b border-sky-900/70 px-3 sm:px-6 py-2.5 shadow-md z-10">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 sm:gap-4">
+            <!-- Identidad y Misión -->
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-400/40 items-center justify-center text-sky-300 font-blueprint font-bold text-sm">
+                    LDA
+                </div>
+                <div>
+                    <div class="text-[11px] text-sky-300 font-blueprint uppercase tracking-wider" id="hud-student">Liceo de Apodaca</div>
+                    <div class="text-sm sm:text-base font-bold font-blueprint text-white">
+                        MISIÓN <span id="hud-mission" class="text-sky-300">1</span> / <span id="hud-total-missions">20</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESCALA ACTIVA DEL PLANO -->
+            <div class="bg-[#051021] border-2 border-amber-500/75 rounded-xl px-3.5 py-1.5 flex items-center gap-2.5 shadow-inner">
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></div>
+                <div>
+                    <span class="text-[10px] font-blueprint uppercase tracking-widest text-amber-300/80 block leading-none">Escala Activa del Plano</span>
+                    <span id="hud-scale" class="text-sm sm:text-lg font-bold font-blueprint text-amber-400 text-glow-amber">1 cm = 10 m</span>
+                </div>
+            </div>
+
+            <!-- Precisión y Puntuación -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                <div class="text-right">
+                    <span class="text-[10px] font-blueprint uppercase text-slate-400 block leading-none">Aciertos</span>
+                    <span id="hud-accuracy" class="text-sm sm:text-base font-bold font-blueprint text-sky-300">0 / 0</span>
+                </div>
+                <div class="bg-sky-950/80 border border-sky-700/60 rounded-xl px-3 py-1.5 text-right">
+                    <span class="text-[10px] font-blueprint uppercase text-sky-300 block leading-none">Puntos XP</span>
+                    <span id="hud-score" class="text-base sm:text-lg font-bold font-blueprint text-emerald-400">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== ÁREA PRINCIPAL DE JUEGO ==================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+        
+        <!-- COLUMNA IZQUIERDA: PLANO ARQUITECTÓNICO DEL CAMPUS (8 columnas) -->
+        <div class="lg:col-span-8 flex flex-col gap-2">
+            <div class="relative w-full bg-[#051226] blueprint-border blueprint-glow rounded-2xl overflow-hidden shadow-2xl">
+                <!-- Barra flotante superior sobre el plano -->
+                <div class="absolute top-3 left-3 right-3 flex flex-wrap justify-between items-center pointer-events-none z-10 gap-2">
+                    <div class="bg-[#071830]/90 backdrop-blur border border-sky-500/35 rounded-lg px-3 py-1.5 text-xs font-blueprint text-sky-200 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                        <span>Arrastra entre ubicaciones para medir con la regla</span>
+                    </div>
+                    <button onclick="clearRuler()" class="pointer-events-auto bg-[#0a2244]/95 hover:bg-sky-800 border border-sky-400/50 text-sky-100 text-xs font-blueprint px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        Limpiar Regla
+                    </button>
+                </div>
+
+                <!-- Contenedor del Canvas Responsivo -->
+                <div id="canvas-container" class="w-full aspect-[4/3] sm:aspect-[16/11] relative">
+                    <canvas id="campusCanvas" class="w-full h-full block"></canvas>
+                </div>
+
+                <!-- Barra inferior de telemetría de la regla -->
+                <div class="bg-[#081b36] border-t border-sky-900/70 px-4 py-2 flex flex-wrap items-center justify-between text-xs font-blueprint gap-2">
+                    <div class="flex items-center gap-4">
+                        <span class="text-slate-300">MEDIDA EN PLANO: <strong id="ruler-readout" class="text-amber-400 text-sm">0.0 cm</strong></span>
+                        <span class="text-slate-400 hidden sm:inline">UNIDAD BASE: <strong class="text-sky-300">1 cuadrito = 1.0 cm</strong></span>
+                    </div>
+                    <div class="text-slate-300 flex items-center gap-3">
+                        <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 mr-1"></span>Inicio</span>
+                        <span><span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-400 mr-1"></span>Destino</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: PANEL DE MISIÓN Y CALCULADORA (4 columnas) -->
+        <div class="lg:col-span-4 flex flex-col gap-4">
+            
+            <!-- Tarjeta de Misión Actual -->
+            <div class="bg-[#0a1e3c] blueprint-border blueprint-glow rounded-2xl p-4 sm:p-5">
+                <div class="flex items-center justify-between gap-2 pb-2.5 mb-2.5 border-b border-sky-900/60">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-amber-400 text-slate-950 font-blueprint font-bold text-xs flex items-center justify-center shrink-0">
+                            TR
+                        </div>
+                        <span class="text-xs font-blueprint font-bold uppercase tracking-wider text-amber-300">Encargo de Teacher Raúl</span>
+                    </div>
+                    <span class="text-xs font-blueprint text-amber-300 font-semibold bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded" id="mission-scale-hint">1 cm = 10 m</span>
+                </div>
+
+                <div class="flex items-center justify-between mb-2.5">
+                    <span id="mission-badge" class="px-2.5 py-1 rounded-md text-[11px] font-blueprint font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/40">
+                        Tipo 1 • Cálculo Directo
+                    </span>
+                </div>
+
+                <h2 id="mission-title" class="text-lg font-bold font-blueprint text-white mb-2">Cargando misión...</h2>
+                <p id="mission-desc" class="text-sm text-slate-200 leading-relaxed mb-4 bg-[#051124] p-3.5 rounded-xl border border-sky-900/60">
+                    Preparando plano del Liceo de Apodaca...
+                </p>
+
+                <!-- Controles para TIPO 1 (cm -> m) y TIPO 3 (m -> cm) -->
+                <div id="input-area-numeric" class="space-y-3">
+                    <label id="numeric-input-label" for="answer-numeric" class="block text-xs font-blueprint uppercase text-sky-300">
+                        Distancia real calculada (en metros):
+                    </label>
+                    <div class="flex gap-2">
+                        <div class="relative flex-1">
+                            <input type="number" step="0.1" id="answer-numeric" placeholder="Ej. 45" 
+                                class="w-full bg-[#051021] border border-sky-500/50 rounded-xl pl-4 pr-12 py-3 text-white font-blueprint text-lg focus:outline-none focus:border-sky-400">
+                            <span id="numeric-unit-label" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-blueprint text-sm font-bold">m</span>
+                        </div>
+                        <button id="btn-submit-numeric" onclick="submitNumericMission()" 
+                            class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-blueprint font-bold px-5 py-3 rounded-xl transition shadow-lg shadow-emerald-500/20 active:scale-95">
+                            VERIFICAR
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Controles para TIPO 2 (Selección de Destino por Alcance con Lista Desplegable Sincronizada) -->
+                <div id="input-area-select" class="hidden space-y-3">
+                    <div class="bg-amber-500/10 border border-amber-500/40 rounded-xl p-3 text-xs text-amber-200 flex items-start gap-2.5">
+                        <svg class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>Convierte los metros a centímetros, mide con la regla desde el origen y <strong>elige el lugar de destino</strong> en la lista (o tócalo directo en el plano).</span>
+                    </div>
+
+                    <div>
+                        <label for="destination-select" class="block text-xs font-blueprint uppercase text-sky-300 mb-1.5">
+                            Selecciona la ubicación de destino:
+                        </label>
+                        <select id="destination-select" onchange="handleDropdownChange(this.value)"
+                            class="w-full bg-[#051021] border-2 border-amber-500/60 rounded-xl px-3.5 py-3 text-white font-blueprint text-sm sm:text-base focus:outline-none focus:border-amber-400 cursor-pointer">
+                            <option value="">-- Elige un lugar del campus --</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-submit-select" onclick="submitSelectMission()" disabled
+                        class="w-full bg-emerald-500 disabled:bg-slate-700 disabled:text-slate-500 hover:bg-emerald-400 text-slate-950 font-blueprint font-bold py-3 rounded-xl transition shadow-lg active:scale-95">
+                        CONFIRMAR DESTINO EN CAMPUS
+                    </button>
+                </div>
+            </div>
+
+            <!-- Herramienta Auxiliar: Calculadora de Bitácora -->
+            <div class="bg-[#0a1e3c]/95 border border-sky-900/60 rounded-2xl p-4">
+                <div class="flex items-center justify-between">
+                    <button onclick="toggleCalc()" class="flex items-center gap-1.5 text-xs font-blueprint uppercase tracking-wider text-sky-300 hover:text-sky-200 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <span>Calculadora de Bitácora</span>
+                        <span id="calc-toggle-icon" class="text-[10px] bg-sky-950 px-1.5 py-0.5 rounded border border-sky-800 ml-1">Ocultar</span>
+                    </button>
+                    <button onclick="calcClear()" class="text-[11px] text-slate-400 hover:text-white font-blueprint">Borrar</button>
+                </div>
+                <div id="calc-body" class="mt-2.5">
+                    <div class="bg-[#051021] border border-slate-800 rounded-lg p-2 mb-2 text-right font-blueprint">
+                        <div id="calc-history" class="text-[10px] text-slate-500 h-3.5"></div>
+                        <div id="calc-display" class="text-lg text-sky-300 font-bold overflow-hidden">0</div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1.5 font-blueprint text-sm">
+                        <button onclick="calcInput('7')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">7</button>
+                        <button onclick="calcInput('8')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">8</button>
+                        <button onclick="calcInput('9')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">9</button>
+                        <button onclick="calcInput('/')" class="bg-sky-900/70 hover:bg-sky-800 py-1.5 rounded text-sky-300 font-bold">÷</button>
+                        <button onclick="calcInput('4')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">4</button>
+                        <button onclick="calcInput('5')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">5</button>
+                        <button onclick="calcInput('6')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">6</button>
+                        <button onclick="calcInput('*')" class="bg-sky-900/70 hover:bg-sky-800 py-1.5 rounded text-sky-300 font-bold">×</button>
+                        <button onclick="calcInput('1')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">1</button>
+                        <button onclick="calcInput('2')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">2</button>
+                        <button onclick="calcInput('3')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">3</button>
+                        <button onclick="calcInput('-')" class="bg-sky-900/70 hover:bg-sky-800 py-1.5 rounded text-sky-300 font-bold">-</button>
+                        <button onclick="calcInput('0')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">0</button>
+                        <button onclick="calcInput('.')" class="bg-[#0e2a54] hover:bg-[#153c75] py-1.5 rounded text-white">.</button>
+                        <button onclick="calcEval()" class="bg-amber-500 hover:bg-amber-400 py-1.5 rounded text-slate-950 font-bold">=</button>
+                        <button onclick="calcInput('+')" class="bg-sky-900/70 hover:bg-sky-800 py-1.5 rounded text-sky-300 font-bold">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== MODAL DE RETROALIMENTACIÓN EDUCATIVA ==================== -->
+    <div id="feedback-modal" class="fixed inset-0 z-40 hidden items-center justify-center bg-[#051021]/85 backdrop-blur-sm p-4">
+        <div id="feedback-card" class="max-w-md w-full bg-[#0a1e3c] border-2 rounded-2xl p-6 shadow-2xl transform transition-all">
+            <div class="flex items-center gap-3 mb-3">
+                <div id="feedback-icon" class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"></div>
+                <div>
+                    <span id="feedback-subtitle" class="text-xs font-blueprint uppercase tracking-wider block"></span>
+                    <h3 id="feedback-title" class="text-xl font-bold font-blueprint text-white"></h3>
+                </div>
+            </div>
+
+            <p id="feedback-message" class="text-sm text-slate-200 mb-4 leading-relaxed"></p>
+
+            <!-- Caja con el procedimiento matemático paso a paso -->
+            <div class="bg-[#051021] border border-sky-800/70 rounded-xl p-3.5 mb-5">
+                <span class="text-[11px] font-blueprint uppercase text-sky-400 block mb-1">Procedimiento Matemático:</span>
+                <div id="feedback-math" class="font-blueprint text-sm sm:text-base text-amber-300 font-semibold"></div>
+            </div>
+
+            <button onclick="nextMission()" id="btn-next-mission"
+                class="w-full py-3 px-5 bg-sky-400 hover:bg-sky-300 text-slate-950 font-blueprint font-bold rounded-xl transition shadow-lg">
+                CONTINUAR SIGUIENTE MISIÓN →
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA FINAL DE EVALUACIÓN FORMATIVA ==================== -->
+    <div id="summary-screen" class="fixed inset-0 z-50 hidden items-center justify-center bg-[#051021]/95 backdrop-blur-md p-3 sm:p-6 overflow-y-auto">
+        <div class="max-w-4xl w-full bg-[#0a1e3c] blueprint-border blueprint-glow rounded-2xl p-5 sm:p-8 my-auto">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-sky-900/70 pb-4 mb-5 gap-3">
+                <div>
+                    <span class="text-xs font-blueprint uppercase tracking-widest text-amber-400 font-bold">Evaluación Formativa • Teacher Raúl • Liceo de Apodaca</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-blueprint text-white">REPORTE FINAL DE COORDINACIÓN</h2>
+                    <p class="text-sm text-slate-300 mt-1">
+                        Alumno / Equipo: <strong id="sum-student" class="text-sky-300">---</strong> 
+                        <span class="mx-2 text-slate-600">|</span> 
+                        Grupo: <strong id="sum-group" class="text-amber-300">---</strong>
+                    </p>
+                </div>
+                <div class="flex flex-col sm:items-end gap-1.5">
+                    <div class="bg-emerald-500/15 border border-emerald-400/50 rounded-lg px-3 py-1 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span class="text-[11px] font-blueprint font-bold uppercase tracking-wider text-emerald-300">Revisado por Teacher Raúl</span>
+                    </div>
+                    <div class="bg-[#051021] border border-amber-500/50 rounded-xl px-4 py-2 text-center sm:text-right">
+                        <span class="text-[10px] font-blueprint uppercase text-amber-400 block">Nivel de Desempeño</span>
+                        <span id="sum-rank" class="text-base sm:text-lg font-bold font-blueprint text-white">Coordinador Experto</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Métricas principales -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5 text-center">
+                <div class="bg-[#06152b] border border-sky-900/60 rounded-xl p-3">
+                    <span class="text-xs text-slate-400 font-blueprint block">CALIFICACIÓN</span>
+                    <span id="sum-grade" class="text-xl sm:text-2xl font-bold font-blueprint text-emerald-400">0 / 100</span>
+                </div>
+                <div class="bg-[#06152b] border border-sky-900/60 rounded-xl p-3">
+                    <span class="text-xs text-slate-400 font-blueprint block">PRECISIÓN</span>
+                    <span id="sum-precision" class="text-xl sm:text-2xl font-bold font-blueprint text-sky-400">0%</span>
+                </div>
+                <div class="bg-[#06152b] border border-sky-900/60 rounded-xl p-3">
+                    <span class="text-xs text-slate-400 font-blueprint block">ACIERTOS</span>
+                    <span id="sum-missions" class="text-xl sm:text-2xl font-bold font-blueprint text-amber-400">0 / 20</span>
+                </div>
+                <div class="bg-[#06152b] border border-sky-900/60 rounded-xl p-3">
+                    <span class="text-xs text-slate-400 font-blueprint block">PUNTOS XP</span>
+                    <span id="sum-score" class="text-xl sm:text-2xl font-bold font-blueprint text-purple-400">0 XP</span>
+                </div>
+            </div>
+
+            <!-- Desglose por tipo de habilidad -->
+            <div class="mb-5">
+                <h3 class="text-xs font-blueprint uppercase tracking-wider text-sky-300 mb-2">Desglose por Tipo de Habilidad Matemática:</h3>
+                <div id="sum-skills" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
+            </div>
+
+            <!-- Historial detallado de las 20 misiones -->
+            <div class="mb-6">
+                <h3 class="text-xs font-blueprint uppercase tracking-wider text-sky-300 mb-2">Bitácora Completa de las 20 Misiones:</h3>
+                <div id="sum-log" class="max-h-52 overflow-y-auto space-y-2 pr-1"></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="restartGame()" 
+                    class="flex-1 py-3 px-5 bg-gradient-to-r from-sky-500 to-cyan-400 hover:from-sky-400 hover:to-cyan-300 text-slate-950 font-blueprint font-bold rounded-xl transition shadow-lg">
+                    REINICIAR CON NUEVAS MISIONES ALEATORIAS
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== LÓGICA DEL JUEGO ==================== -->
+    <script>
+        /**
+         * CONFIGURACIÓN DE COORDENADAS DEL PLANO DEL LICEO DE APODACA
+         * Espacio lógico de 800 x 550 unidades donde 50 unidades = 1.0 cm virtual.
+         * Todas las ubicaciones están colocadas sobre múltiplos de 25 unidades (0.5 cm)
+         * y ternas pitagóricas exactas (3-4-5, 6-8-10, 5-12-13) para que las distancias
+         * entre pares sean múltiplos exactos de 0.5 cm.
+         */
+        const LOGICAL_WIDTH = 800;
+        const LOGICAL_HEIGHT = 550;
+        const UNITS_PER_CM = 50; // 50 px lógicos = 1.0 cm virtual
+        const TOTAL_MISSIONS = 20;
+
+        // Las 10 ubicaciones reales del Liceo de Apodaca
+        const LOCATIONS = [
+            {
+                id: 'miss_lulu',
+                name: 'Oficina de Miss Lulú',
+                shortName: 'Miss Lulú (Dirección)',
+                role: 'Dirección',
+                type: 'office',
+                x: 100,
+                y: 100,
+                color: '#fbbf24'
+            },
+            {
+                id: 'teacher_tono',
+                name: 'Oficina de Teacher Toño',
+                shortName: 'Teacher Toño (Coord.)',
+                role: 'Coordinación',
+                type: 'office',
+                x: 350, // 5.0 cm de Miss Lulú
+                y: 100,
+                color: '#38bdf8'
+            },
+            {
+                id: 'charly',
+                name: 'Oficina de Charly',
+                shortName: 'Charly (Sistemas)',
+                role: 'Sistemas',
+                type: 'tech',
+                x: 650, // 6.0 cm de Teacher Toño, 11.0 cm de Miss Lulú
+                y: 100,
+                color: '#a78bfa'
+            },
+            {
+                id: 'biblioteca',
+                name: 'La Biblioteca',
+                shortName: 'La Biblioteca',
+                role: 'Área de Lectura',
+                type: 'library',
+                x: 100, // 3.0 cm al sur de Miss Lulú
+                y: 250,
+                color: '#34d399'
+            },
+            {
+                id: 'salon_505',
+                name: 'Salón 505',
+                shortName: 'Salón 505',
+                role: 'Aula 7° Grado',
+                type: 'classroom',
+                x: 350, // 3.0 cm de Teacher Toño, 5.0 cm de Biblioteca
+                y: 250,
+                color: '#60a5fa'
+            },
+            {
+                id: 'salon_506',
+                name: 'Salón 506',
+                shortName: 'Salón 506',
+                role: 'Aula 7° Grado',
+                type: 'classroom',
+                x: 500, // 3.0 cm de Salón 505, 8.0 cm de Biblioteca
+                y: 250,
+                color: '#60a5fa'
+            },
+            {
+                id: 'salon_507',
+                name: 'Salón 507',
+                shortName: 'Salón 507',
+                role: 'Aula 7° Grado',
+                type: 'classroom',
+                x: 650, // 3.0 cm de Salón 506, 3.0 cm de Charly, 6.0 cm de Salón 505
+                y: 250,
+                color: '#60a5fa'
+            },
+            {
+                id: 'foro',
+                name: 'El Foro',
+                shortName: 'El Foro',
+                role: 'Escenario Cultural',
+                type: 'forum',
+                x: 100, // 4.0 cm de Biblioteca, 7.0 cm de Miss Lulú
+                y: 450,
+                color: '#f472b6'
+            },
+            {
+                id: 'salon_508',
+                name: 'Salón 508',
+                shortName: 'Salón 508',
+                role: 'Aula 7° Grado',
+                type: 'classroom',
+                x: 350, // 4.0 cm de Salón 505, 5.0 cm de El Foro, 5.0 cm de Salón 506 (3-4-5!)
+                y: 450,
+                color: '#60a5fa'
+            },
+            {
+                id: 'cancha',
+                name: 'Cancha de Fútbol',
+                shortName: 'Cancha Pasto Sintético',
+                role: 'Pasto Sintético',
+                type: 'field',
+                x: 650, // 6.0 cm de Salón 508, 4.0 cm de Salón 507, 5.0 cm de Salón 506 (3-4-5!)
+                y: 450,
+                color: '#22c55e'
+            }
+        ];
+
+        // Escalas escolares realistas para el plano del campus
+        const SCALES = [
+            { label: '1 cm = 10 m', metersPerCm: 10 },
+            { label: '1 cm = 12 m', metersPerCm: 12 },
+            { label: '1 cm = 15 m', metersPerCm: 15 },
+            { label: '1 cm = 20 m', metersPerCm: 20 },
+            { label: '1 cm = 25 m', metersPerCm: 25 }
+        ];
+
+        // Narrativas contextualizadas del Liceo de Apodaca asignadas por Teacher Raúl
+        function buildMissionNarrative(type, origin, target, distCm, realMeters, scaleLabel) {
+            if (type === 1) {
+                // Cálculo directo cm -> m
+                if (target.id === 'charly') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Lleva esta laptop a soporte técnico urgente. Mide con la regla virtual desde <strong>${origin.name}</strong> hasta la <strong>Oficina de Charly (Sistemas)</strong> y calcula cuántos <strong>metros reales</strong> recorrerás."`;
+                }
+                if (target.id === 'miss_lulu') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Entrega este reporte firmado en Dirección. Mide en el plano la ruta desde <strong>${origin.name}</strong> hasta la <strong>Oficina de Miss Lulú</strong> y calcula la distancia real en <strong>metros</strong>."`;
+                }
+                if (target.id === 'teacher_tono') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Ve por una firma de autorización con Coordinación. Mide la distancia desde <strong>${origin.name}</strong> hasta la <strong>Oficina de Teacher Toño</strong> y calcula los <strong>metros reales</strong>."`;
+                }
+                if (target.id === 'cancha') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Lleva los balones para el torneo escolar. Mide con la regla desde <strong>${origin.name}</strong> hasta la <strong>Cancha de Fútbol (Pasto Sintético)</strong> y calcula cuántos <strong>metros reales</strong> hay."`;
+                }
+                if (target.id === 'biblioteca') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Ve por los libros de consulta para la clase. Mide desde <strong>${origin.name}</strong> hasta <strong>La Biblioteca</strong> y calcula la distancia real en <strong>metros</strong>."`;
+                }
+                if (target.id === 'foro') {
+                    return `<strong>Teacher Raúl te pide:</strong> "Ayuda a preparar el audio para la asamblea. Mide con la regla desde <strong>${origin.name}</strong> hasta <strong>El Foro</strong> y calcula cuántos <strong>metros reales</strong> caminarás."`;
+                }
+                return `<strong>Teacher Raúl te pide:</strong> "Entrega este material de clase desde <strong>${origin.name}</strong> hasta el <strong>${target.name}</strong>. Mide los centímetros en el plano y calcula los <strong>metros reales</strong>."`;
+            }
+
+            if (type === 2) {
+                // Selección de destino por alcance
+                return `<strong>Teacher Raúl te reta:</strong> "Sales desde <strong>${origin.name}</strong> y solo tienes tiempo para caminar exactamente <strong class="text-amber-400 text-base">${realMeters} m</strong> en línea recta. Usando la escala <strong class="text-sky-300">${scaleLabel}</strong>, convierte los metros a centímetros, mide desde el origen y selecciona a qué <strong>ubicación del campus</strong> llegas."`;
+            }
+
+            // Tipo 3: Escala inversa m -> cm
+            return `<strong>Pregunta de Teacher Raúl:</strong> "La distancia real entre <strong>${origin.name}</strong> y <strong>${target.name}</strong> es de <strong class="text-amber-400 text-base">${realMeters} metros</strong>. Si el plano usa la escala <strong class="text-sky-300">${scaleLabel}</strong>, ¿cuántos <strong>centímetros (cm)</strong> debe medir esa ruta en el mapa?"`;
+        }
+
+        // Estado global del juego
+        let gameState = {
+            studentName: 'Alumno',
+            studentGroup: '7° Grado',
+            currentMissionIndex: 0,
+            score: 0,
+            missions: [],
+            historyLog: [],
+            selectedLocationId: '',
+            isAnimatingMessenger: false,
+            messengerAnim: null
+        };
+
+        // Estado de la regla virtual interactiva
+        let ruler = {
+            active: false,
+            isDragging: false,
+            pointerDownPos: null,
+            startX: 0,
+            startY: 0,
+            endX: 0,
+            endY: 0
+        };
+
+        const canvas = document.getElementById('campusCanvas');
+        const ctx = canvas.getContext('2d');
+        let pulsePhase = 0;
+
+        /**
+         * Algoritmo Fisher-Yates para mezcla aleatoria sin repetición
+         */
+        function fisherYatesShuffle(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function getDistanceCmBetween(locA, locB) {
+            const distLogical = Math.hypot(locB.x - locA.x, locB.y - locA.y);
+            return distLogical / UNITS_PER_CM;
+        }
+
+        function isCleanHalfCm(distCm) {
+            const doubled = distCm * 2;
+            return Math.abs(doubled - Math.round(doubled)) < 0.04;
+        }
+
+        /**
+         * Genera 20 misiones 100% aleatorias y únicas alternando los 3 tipos de cálculo
+         */
+        function generateMissions() {
+            const cleanPairs = [];
+
+            for (let i = 0; i < LOCATIONS.length; i++) {
+                for (let j = 0; j < LOCATIONS.length; j++) {
+                    if (i === j) continue;
+                    const locA = LOCATIONS[i];
+                    const locB = LOCATIONS[j];
+                    const rawCm = getDistanceCmBetween(locA, locB);
+                    if (rawCm >= 2.0 && rawCm <= 12.0 && isCleanHalfCm(rawCm)) {
+                        const cleanCm = Math.round(rawCm * 2) / 2;
+                        cleanPairs.push({ origin: locA, target: locB, distCm: cleanCm });
+                    }
+                }
+            }
+
+            // Universo de combinaciones (Origen, Destino, Escala)
+            const allCombinations = [];
+            cleanPairs.forEach(pair => {
+                SCALES.forEach(scaleObj => {
+                    allCombinations.push({
+                        origin: pair.origin,
+                        target: pair.target,
+                        distCm: pair.distCm,
+                        scale: scaleObj
+                    });
+                });
+            });
+
+            const shuffledPool = fisherYatesShuffle(allCombinations);
+
+            // Secuencia balanceada de los 3 tipos de retos para 20 misiones
+            const typePool = [];
+            for (let i = 0; i < TOTAL_MISSIONS; i++) {
+                if (i % 3 === 0) typePool.push(1);
+                else if (i % 3 === 1) typePool.push(2);
+                else typePool.push(3);
+            }
+            const shuffledTypes = fisherYatesShuffle(typePool);
+
+            const selectedMissions = [];
+            const usedSignatures = new Set();
+            let cursor = 0;
+
+            for (let m = 0; m < TOTAL_MISSIONS; m++) {
+                const missionType = shuffledTypes[m];
+                let chosen = null;
+
+                while (cursor < shuffledPool.length) {
+                    const candidate = shuffledPool[cursor++];
+                    const sig = `${candidate.origin.id}-${candidate.target.id}-${candidate.scale.label}`;
+                    if (usedSignatures.has(sig)) continue;
+
+                    // En Tipo 2 (selección de destino por alcance), evitar ambigüedad si hay dos lugares
+                    // exactamente a la misma distancia del origen
+                    if (missionType === 2) {
+                        const ambiguous = LOCATIONS.some(other =>
+                            other.id !== candidate.origin.id &&
+                            other.id !== candidate.target.id &&
+                            Math.abs(getDistanceCmBetween(candidate.origin, other) - candidate.distCm) < 0.35
+                        );
+                        if (ambiguous) continue;
+                    }
+
+                    usedSignatures.add(sig);
+                    chosen = candidate;
+                    break;
+                }
+
+                if (!chosen) {
+                    chosen = shuffledPool[m % shuffledPool.length];
+                }
+
+                const realMeters = +(chosen.distCm * chosen.scale.metersPerCm).toFixed(1);
+
+                selectedMissions.push({
+                    number: m + 1,
+                    type: missionType, // 1: cm->m, 2: selección por alcance, 3: m->cm
+                    scale: chosen.scale,
+                    origin: chosen.origin,
+                    target: chosen.target,
+                    distCm: chosen.distCm,
+                    realMeters: realMeters
+                });
+            }
+
+            return selectedMissions;
+        }
+
+        function startGame() {
+            const nameVal = document.getElementById('student-name').value.trim();
+            const groupVal = document.getElementById('student-group').value.trim();
+            gameState.studentName = nameVal || 'Alumno Liceo';
+            gameState.studentGroup = groupVal || '7° Grado';
+            gameState.currentMissionIndex = 0;
+            gameState.score = 0;
+            gameState.historyLog = [];
+            gameState.missions = generateMissions();
+
+            document.getElementById('hud-student').textContent = `${gameState.studentName} (${gameState.studentGroup})`;
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('summary-screen').classList.add('hidden');
+            document.getElementById('summary-screen').classList.remove('flex');
+
+            resizeCanvas();
+            loadMission(0);
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        /**
+         * Carga la misión actual en la interfaz
+         */
+        function loadMission(index) {
+            const mission = gameState.missions[index];
+            gameState.selectedLocationId = '';
+            gameState.isAnimatingMessenger = false;
+            gameState.messengerAnim = null;
+            clearRuler();
+
+            // Actualizar HUD
+            const correctSoFar = gameState.historyLog.filter(h => h.isCorrect).length;
+            document.getElementById('hud-mission').textContent = mission.number;
+            document.getElementById('hud-total-missions').textContent = TOTAL_MISSIONS;
+            document.getElementById('hud-scale').textContent = mission.scale.label;
+            document.getElementById('hud-score').textContent = gameState.score;
+            document.getElementById('hud-accuracy').textContent = `${correctSoFar} / ${gameState.historyLog.length}`;
+            document.getElementById('mission-scale-hint').textContent = mission.scale.label;
+
+            const badge = document.getElementById('mission-badge');
+            const title = document.getElementById('mission-title');
+            const desc = document.getElementById('mission-desc');
+            const areaNumeric = document.getElementById('input-area-numeric');
+            const areaSelect = document.getElementById('input-area-select');
+
+            desc.innerHTML = buildMissionNarrative(
+                mission.type,
+                mission.origin,
+                mission.target,
+                mission.distCm,
+                mission.realMeters,
+                mission.scale.label
+            );
+
+            if (mission.type === 1) {
+                badge.textContent = 'Tipo 1 • Cálculo Directo (cm → m)';
+                badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-blueprint font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/40';
+                title.textContent = `${mission.origin.shortName} → ${mission.target.shortName}`;
+
+                areaNumeric.classList.remove('hidden');
+                areaSelect.classList.add('hidden');
+                document.getElementById('numeric-input-label').textContent = 'Distancia real calculada (en metros):';
+                document.getElementById('numeric-unit-label').textContent = 'm';
+                const inputEl = document.getElementById('answer-numeric');
+                inputEl.placeholder = 'Ej. 45';
+                inputEl.value = '';
+                setTimeout(() => inputEl.focus(), 100);
+
+            } else if (mission.type === 2) {
+                badge.textContent = 'Tipo 2 • Alcance en Campus';
+                badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-blueprint font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40';
+                title.textContent = `Salida desde ${mission.origin.shortName}`;
+
+                areaNumeric.classList.add('hidden');
+                areaSelect.classList.remove('hidden');
+
+                // Llenar menú desplegable ordenado alfabéticamente (excluyendo el origen)
+                const selectEl = document.getElementById('destination-select');
+                selectEl.innerHTML = '<option value="">-- Elige un lugar del campus --</option>';
+                const candidates = LOCATIONS
+                    .filter(loc => loc.id !== mission.origin.id)
+                    .sort((a, b) => a.name.localeCompare(b.name, 'es'));
+
+                candidates.forEach(loc => {
+                    const opt = document.createElement('option');
+                    opt.value = loc.id;
+                    opt.textContent = `${loc.name} (${loc.role})`;
+                    selectEl.appendChild(opt);
+                });
+
+                document.getElementById('btn-submit-select').disabled = true;
+
+            } else {
+                badge.textContent = 'Tipo 3 • Escala Inversa (m → cm)';
+                badge.className = 'px-2.5 py-1 rounded-md text-[11px] font-blueprint font-bold uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40';
+                title.textContent = `Medida en Plano: ${mission.origin.shortName} ↔ ${mission.target.shortName}`;
+
+                areaNumeric.classList.remove('hidden');
+                areaSelect.classList.add('hidden');
+                document.getElementById('numeric-input-label').textContent = 'Medida correspondiente en el mapa (en cm):';
+                document.getElementById('numeric-unit-label').textContent = 'cm';
+                const inputEl = document.getElementById('answer-numeric');
+                inputEl.placeholder = 'Ej. 4.5';
+                inputEl.value = '';
+                setTimeout(() => inputEl.focus(), 100);
+            }
+        }
+
+        /**
+         * Sincronización cuando el alumno cambia el menú desplegable (Tipo 2)
+         */
+        function handleDropdownChange(locId) {
+            gameState.selectedLocationId = locId;
+            document.getElementById('btn-submit-select').disabled = !locId;
+        }
+
+        /**
+         * Validación Misiones Tipo 1 (cm -> m) y Tipo 3 (m -> cm)
+         */
+        function submitNumericMission() {
+            if (gameState.isAnimatingMessenger) return;
+            const inputVal = parseFloat(document.getElementById('answer-numeric').value);
+            if (isNaN(inputVal) || inputVal <= 0) {
+                shakeInput('answer-numeric');
+                return;
+            }
+
+            const mission = gameState.missions[gameState.currentMissionIndex];
+
+            if (mission.type === 1) {
+                // Cálculo Directo: cm * metrosPorCm = metros reales
+                const tolerance = Math.max(1, mission.realMeters * 0.04);
+                const isCorrect = Math.abs(inputVal - mission.realMeters) <= tolerance;
+                const mathSteps = `Distancia Real = Medida en plano × Escala → ${mission.distCm.toFixed(1)} cm × ${mission.scale.metersPerCm} m/cm = ${mission.realMeters} m`;
+                const ratio = isCorrect ? 1 : Math.min(1.25, Math.max(0.25, inputVal / mission.realMeters));
+
+                processMissionResult(
+                    isCorrect,
+                    `${inputVal} m`,
+                    `${mission.realMeters} m`,
+                    mathSteps,
+                    mission.target,
+                    ratio
+                );
+            } else {
+                // Escala Inversa: metros reales / metrosPorCm = cm en plano
+                const tolerance = 0.15;
+                const isCorrect = Math.abs(inputVal - mission.distCm) <= tolerance;
+                const mathSteps = `Medida en Plano = Distancia Real ÷ Escala → ${mission.realMeters} m ÷ ${mission.scale.metersPerCm} m/cm = ${mission.distCm.toFixed(1)} cm`;
+                const ratio = isCorrect ? 1 : Math.min(1.25, Math.max(0.25, inputVal / mission.distCm));
+
+                processMissionResult(
+                    isCorrect,
+                    `${inputVal} cm`,
+                    `${mission.distCm.toFixed(1)} cm`,
+                    mathSteps,
+                    mission.target,
+                    ratio
+                );
+            }
+        }
+
+        /**
+         * Validación Misión Tipo 2 (Selección de destino por alcance)
+         */
+        function submitSelectMission() {
+            if (gameState.isAnimatingMessenger || !gameState.selectedLocationId) return;
+            const mission = gameState.missions[gameState.currentMissionIndex];
+            const chosenLoc = LOCATIONS.find(l => l.id === gameState.selectedLocationId);
+            const isCorrect = (chosenLoc.id === mission.target.id);
+
+            const mathSteps = `Alcance en Plano = ${mission.realMeters} m ÷ ${mission.scale.metersPerCm} m/cm = ${mission.distCm.toFixed(1)} cm desde ${mission.origin.name} → ${mission.target.name}`;
+
+            processMissionResult(
+                isCorrect,
+                chosenLoc.name,
+                mission.target.name,
+                mathSteps,
+                chosenLoc,
+                1
+            );
+        }
+
+        /**
+         * Ejecuta la animación del mensajero en el plano y muestra retroalimentación
+         */
+        function processMissionResult(isCorrect, userAnswerStr, correctAnswerStr, mathExplanation, destinationLoc, stopRatio) {
+            const mission = gameState.missions[gameState.currentMissionIndex];
+
+            const typeLabels = {
+                1: 'Cálculo Directo (cm → m)',
+                2: 'Orientación y Alcance',
+                3: 'Escala Inversa (m → cm)'
+            };
+
+            gameState.historyLog.push({
+                number: mission.number,
+                typeCode: mission.type,
+                typeName: typeLabels[mission.type],
+                route: `${mission.origin.shortName} → ${mission.target.shortName}`,
+                scale: mission.scale.label,
+                userAnswer: userAnswerStr,
+                correctAnswer: correctAnswerStr,
+                math: mathExplanation,
+                isCorrect: isCorrect
+            });
+
+            if (isCorrect) {
+                gameState.score += 100;
+                document.getElementById('hud-score').textContent = gameState.score;
+            }
+
+            const correctSoFar = gameState.historyLog.filter(h => h.isCorrect).length;
+            document.getElementById('hud-accuracy').textContent = `${correctSoFar} / ${gameState.historyLog.length}`;
+
+            // Animar el mensajero recorriendo el plano
+            gameState.isAnimatingMessenger = true;
+            gameState.messengerAnim = {
+                fromX: mission.origin.x,
+                fromY: mission.origin.y,
+                toX: destinationLoc.x,
+                toY: destinationLoc.y,
+                stopRatio: stopRatio,
+                success: isCorrect,
+                progress: 0
+            };
+
+            setTimeout(() => {
+                gameState.isAnimatingMessenger = false;
+                showFeedbackModal(isCorrect, userAnswerStr, correctAnswerStr, mathExplanation);
+            }, 1250);
+        }
+
+        /**
+         * Modal educativo con procedimiento matemático
+         */
+        function showFeedbackModal(isCorrect, userAnswerStr, correctAnswerStr, mathExplanation) {
+            const modal = document.getElementById('feedback-modal');
+            const card = document.getElementById('feedback-card');
+            const icon = document.getElementById('feedback-icon');
+            const subtitle = document.getElementById('feedback-subtitle');
+            const title = document.getElementById('feedback-title');
+            const msg = document.getElementById('feedback-message');
+            const mathBox = document.getElementById('feedback-math');
+            const btnNext = document.getElementById('btn-next-mission');
+
+            if (isCorrect) {
+                card.className = 'max-w-md w-full bg-[#0a1e3c] border-2 border-emerald-500 rounded-2xl p-6 shadow-2xl';
+                icon.className = 'w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl shrink-0 font-bold';
+                icon.innerHTML = '✓';
+                subtitle.className = 'text-xs font-blueprint uppercase tracking-wider text-emerald-400 block';
+                subtitle.textContent = '+100 XP • Supervisado por Teacher Raúl';
+                title.textContent = '¡Excelente cálculo, dice Teacher Raúl!';
+                msg.innerHTML = `Tu respuesta (<strong class="text-white">${userAnswerStr}</strong>) es exacta. Completaste correctamente el encargo en el plano del Liceo de Apodaca.`;
+            } else {
+                card.className = 'max-w-md w-full bg-[#0a1e3c] border-2 border-rose-500 rounded-2xl p-6 shadow-2xl';
+                icon.className = 'w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-2xl shrink-0 font-bold';
+                icon.innerHTML = '✕';
+                subtitle.className = 'text-xs font-blueprint uppercase tracking-wider text-rose-400 block';
+                subtitle.textContent = 'Observación de Teacher Raúl';
+                title.textContent = '¡Revisa tu conversión de escala!';
+                msg.innerHTML = `Respondiste <strong class="text-rose-300">${userAnswerStr}</strong>, pero el valor correcto era <strong class="text-emerald-400">${correctAnswerStr}</strong>. Teacher Raúl te muestra la fórmula paso a paso:`;
+            }
+
+            mathBox.textContent = mathExplanation;
+
+            if (gameState.currentMissionIndex + 1 >= TOTAL_MISSIONS) {
+                btnNext.textContent = 'VER REPORTE FINAL DE EVALUACIÓN →';
+            } else {
+                btnNext.textContent = `SIGUIENTE MISIÓN (${gameState.currentMissionIndex + 2} DE ${TOTAL_MISSIONS}) →`;
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function nextMission() {
+            const modal = document.getElementById('feedback-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+
+            if (gameState.currentMissionIndex + 1 >= TOTAL_MISSIONS) {
+                showSummaryScreen();
+            } else {
+                gameState.currentMissionIndex++;
+                loadMission(gameState.currentMissionIndex);
+            }
+        }
+
+        /**
+         * Pantalla de Reporte Final de Evaluación Formativa
+         */
+        function showSummaryScreen() {
+            const screen = document.getElementById('summary-screen');
+            const correctCount = gameState.historyLog.filter(item => item.isCorrect).length;
+            const gradeOver100 = Math.round((correctCount / TOTAL_MISSIONS) * 100);
+
+            document.getElementById('sum-student').textContent = gameState.studentName;
+            document.getElementById('sum-group').textContent = gameState.studentGroup;
+            document.getElementById('sum-grade').textContent = `${gradeOver100} / 100`;
+            document.getElementById('sum-precision').textContent = `${gradeOver100}%`;
+            document.getElementById('sum-missions').textContent = `${correctCount} / ${TOTAL_MISSIONS}`;
+            document.getElementById('sum-score').textContent = `${gameState.score} XP`;
+
+            let rank = 'Aprendiz de Planos';
+            if (gradeOver100 >= 95) rank = 'Arquitecto Maestro del Campus';
+            else if (gradeOver100 >= 80) rank = 'Coordinador Experto';
+            else if (gradeOver100 >= 65) rank = 'Navegante de Campus';
+            document.getElementById('sum-rank').textContent = rank;
+
+            // Desglose por habilidad
+            const skillsContainer = document.getElementById('sum-skills');
+            skillsContainer.innerHTML = '';
+            [
+                { code: 1, label: 'Tipo 1: Cálculo Directo (cm → m)' },
+                { code: 2, label: 'Tipo 2: Alcance en Campus' },
+                { code: 3, label: 'Tipo 3: Escala Inversa (m → cm)' }
+            ].forEach(skill => {
+                const items = gameState.historyLog.filter(h => h.typeCode === skill.code);
+                const ok = items.filter(h => h.isCorrect).length;
+                const total = items.length;
+                const pct = total > 0 ? Math.round((ok / total) * 100) : 0;
+
+                skillsContainer.innerHTML += `
+                    <div class="bg-[#051021] border border-sky-900/60 rounded-xl p-3">
+                        <div class="text-[11px] font-blueprint text-slate-300 mb-1">${skill.label}</div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold font-blueprint text-sky-400">${ok}/${total} aciertos</span>
+                            <span class="text-xs font-blueprint font-bold ${pct >= 70 ? 'text-emerald-400' : 'text-amber-400'}">${pct}%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                            <div class="bg-sky-400 h-full rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Bitácora completa
+            const logContainer = document.getElementById('sum-log');
+            logContainer.innerHTML = '';
+            gameState.historyLog.forEach(entry => {
+                const badge = entry.isCorrect
+                    ? '<span class="px-2 py-0.5 rounded text-[11px] font-blueprint font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">ACIERTO</span>'
+                    : '<span class="px-2 py-0.5 rounded text-[11px] font-blueprint font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40">FALLO</span>';
+
+                logContainer.innerHTML += `
+                    <div class="bg-[#051021] border ${entry.isCorrect ? 'border-emerald-900/60' : 'border-rose-900/60'} rounded-xl p-3 text-xs">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="font-blueprint font-bold text-white">Misión ${entry.number} [${entry.typeName}]: ${entry.route}</span>
+                            ${badge}
+                        </div>
+                        <div class="text-slate-400 flex flex-wrap justify-between gap-2">
+                            <span>Escala: <strong class="text-amber-300">${entry.scale}</strong></span>
+                            <span>Tu resp: <strong class="${entry.isCorrect ? 'text-emerald-300' : 'text-rose-300'}">${entry.userAnswer}</strong> | Correcta: <strong class="text-sky-300">${entry.correctAnswer}</strong></span>
+                        </div>
+                        <div class="text-[11px] font-blueprint text-slate-500 mt-1">${entry.math}</div>
+                    </div>
+                `;
+            });
+
+            screen.classList.remove('hidden');
+            screen.classList.add('flex');
+        }
+
+        function shakeInput(id) {
+            const el = document.getElementById(id);
+            el.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/40');
+            setTimeout(() => el.classList.remove('border-rose-500', 'ring-2', 'ring-rose-500/40'), 700);
+        }
+
+        // ==================== CALCULADORA DE BITÁCORA ====================
+
+        let calcExpression = '';
+
+        function toggleCalc() {
+            const body = document.getElementById('calc-body');
+            const icon = document.getElementById('calc-toggle-icon');
+            if (body.classList.contains('hidden')) {
+                body.classList.remove('hidden');
+                icon.textContent = 'Ocultar';
+            } else {
+                body.classList.add('hidden');
+                icon.textContent = 'Mostrar';
+            }
+        }
+
+        function calcInput(val) {
+            calcExpression += val;
+            document.getElementById('calc-display').textContent = calcExpression;
+        }
+
+        function calcClear() {
+            calcExpression = '';
+            document.getElementById('calc-display').textContent = '0';
+            document.getElementById('calc-history').textContent = '';
+        }
+
+        function calcEval() {
+            if (!calcExpression) return;
+            try {
+                const sanitized = calcExpression.replace(/[^0-9+\-*/.]/g, '');
+                const result = Function('"use strict";return (' + sanitized + ')')();
+                const rounded = Math.round(result * 1000) / 1000;
+                document.getElementById('calc-history').textContent = calcExpression + ' =';
+                document.getElementById('calc-display').textContent = rounded;
+                calcExpression = String(rounded);
+            } catch (e) {
+                document.getElementById('calc-display').textContent = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        // ==================== INTERACCIÓN CON EL CANVAS Y REGLA VIRTUAL ====================
+
+        function resizeCanvas() {
+            const container = document.getElementById('canvas-container');
+            const rect = container.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        function getLogicalCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const scaleX = LOGICAL_WIDTH / rect.width;
+            const scaleY = LOGICAL_HEIGHT / rect.height;
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function getClientCoords(e) {
+            return {
+                x: e.touches ? e.touches[0].clientX : e.clientX,
+                y: e.touches ? e.touches[0].clientY : e.clientY
+            };
+        }
+
+        function findNearestLocation(x, y, maxDist = 28) {
+            let nearest = null;
+            let minD = maxDist;
+            LOCATIONS.forEach(loc => {
+                const d = Math.hypot(loc.x - x, loc.y - y);
+                if (d < minD) {
+                    minD = d;
+                    nearest = loc;
+                }
+            });
+            return nearest;
+        }
+
+        function handlePointerDown(e) {
+            if (gameState.isAnimatingMessenger) return;
+            const pos = getLogicalCoords(e);
+            const clientPos = getClientCoords(e);
+            const clickedLoc = findNearestLocation(pos.x, pos.y, 30);
+
+            ruler.pointerDownPos = clientPos;
+            ruler.isDragging = false;
+
+            const snapStart = clickedLoc ? { x: clickedLoc.x, y: clickedLoc.y } : pos;
+            ruler.startX = snapStart.x;
+            ruler.startY = snapStart.y;
+            ruler.endX = snapStart.x;
+            ruler.endY = snapStart.y;
+        }
+
+        function handlePointerMove(e) {
+            if (!ruler.pointerDownPos) return;
+            const clientPos = getClientCoords(e);
+            const movedPx = Math.hypot(
+                clientPos.x - ruler.pointerDownPos.x,
+                clientPos.y - ruler.pointerDownPos.y
+            );
+
+            // Solo activar el arrastre de la regla si se movió más de 6 px (evita conflictos con clic directo)
+            if (movedPx > 6) {
+                ruler.isDragging = true;
+                ruler.active = true;
+            }
+
+            if (!ruler.isDragging) return;
+            e.preventDefault();
+            const pos = getLogicalCoords(e);
+            const snapEnd = findNearestLocation(pos.x, pos.y, 24);
+            ruler.endX = snapEnd ? snapEnd.x : pos.x;
+            ruler.endY = snapEnd ? snapEnd.y : pos.y;
+            updateRulerTelemetry();
+        }
+
+        function handlePointerUp(e) {
+            if (!ruler.pointerDownPos) return;
+
+            // Si fue un clic limpio (< 6 px de arrastre) en Misión Tipo 2, seleccionar el lugar en mapa y dropdown
+            if (!ruler.isDragging) {
+                const currentMission = gameState.missions[gameState.currentMissionIndex];
+                if (currentMission && currentMission.type === 2) {
+                    const clickedLoc = findNearestLocation(ruler.startX, ruler.startY, 32);
+                    if (clickedLoc && clickedLoc.id !== currentMission.origin.id) {
+                        gameState.selectedLocationId = clickedLoc.id;
+                        const selectEl = document.getElementById('destination-select');
+                        selectEl.value = clickedLoc.id;
+                        document.getElementById('btn-submit-select').disabled = false;
+                    }
+                }
+            } else {
+                updateRulerTelemetry();
+            }
+
+            ruler.pointerDownPos = null;
+            ruler.isDragging = false;
+        }
+
+        function clearRuler() {
+            ruler.active = false;
+            ruler.isDragging = false;
+            ruler.pointerDownPos = null;
+            document.getElementById('ruler-readout').textContent = '0.0 cm';
+        }
+
+        function updateRulerTelemetry() {
+            if (!ruler.active) return;
+            const dx = ruler.endX - ruler.startX;
+            const dy = ruler.endY - ruler.startY;
+            const distLogical = Math.hypot(dx, dy);
+            const cm = (distLogical / UNITS_PER_CM).toFixed(1);
+            document.getElementById('ruler-readout').textContent = `${cm} cm`;
+        }
+
+        canvas.addEventListener('mousedown', handlePointerDown);
+        window.addEventListener('mousemove', handlePointerMove);
+        window.addEventListener('mouseup', handlePointerUp);
+
+        canvas.addEventListener('touchstart', handlePointerDown, { passive: false });
+        window.addEventListener('touchmove', handlePointerMove, { passive: false });
+        window.addEventListener('touchend', handlePointerUp);
+
+        document.getElementById('answer-numeric').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') submitNumericMission();
+        });
+
+        // ==================== RENDERIZADO DEL PLANO ARQUITECTÓNICO ====================
+
+        function drawCampusBlueprint() {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = rect.width / LOGICAL_WIDTH;
+            const scaleY = rect.height / LOGICAL_HEIGHT;
+
+            ctx.save();
+            ctx.scale(scaleX, scaleY);
+
+            // 1. Fondo azul marino de plano arquitectónico (Blueprint)
+            ctx.fillStyle = '#06162e';
+            ctx.fillRect(0, 0, LOGICAL_WIDTH, LOGICAL_HEIGHT);
+
+            // 2. Cuadrícula métrica secundaria (0.5 cm = 25 px) y principal (1.0 cm = 50 px)
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= LOGICAL_WIDTH; x += 25) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, LOGICAL_HEIGHT);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= LOGICAL_HEIGHT; y += 25) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(LOGICAL_WIDTH, y);
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.2)';
+            for (let x = 0; x <= LOGICAL_WIDTH; x += UNITS_PER_CM) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, LOGICAL_HEIGHT);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= LOGICAL_HEIGHT; y += UNITS_PER_CM) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(LOGICAL_WIDTH, y);
+                ctx.stroke();
+            }
+
+            // 3. Zonas arquitectónicas de fondo del Liceo de Apodaca (Pasillos, Áreas Verdes, Edificios)
+            // Área Verde Central / Jardines
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.06)';
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.25)';
+            ctx.setLineDash([4, 4]);
+            ctx.strokeRect(50, 55, 700, 445);
+            ctx.setLineDash([]);
+
+            // Pasillo Norte (Oficinas Administrativas)
+            ctx.fillStyle = 'rgba(14, 165, 233, 0.07)';
+            ctx.fillRect(60, 65, 635, 70);
+
+            // Edificio Central de Aulas (Salones 505, 506, 507)
+            ctx.fillStyle = 'rgba(59, 130, 246, 0.08)';
+            ctx.fillRect(305, 215, 390, 70);
+
+            // Marca de agua arquitectónica del colegio
+            ctx.fillStyle = 'rgba(148, 163, 184, 0.14)';
+            ctx.font = '700 13px "Chakra Petch", sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText('PLANO GENERAL • CAMPUS LICEO DE APODACA', LOGICAL_WIDTH - 24, LOGICAL_HEIGHT - 16);
+
+            // 4. Rosa de los Vientos arquitectónica (esquina inferior izquierda)
+            drawArchitectNorth(42, LOGICAL_HEIGHT - 42, 20);
+
+            // 5. Dibujar cada una de las 10 ubicaciones del campus
+            const currentMission = gameState.missions[gameState.currentMissionIndex];
+            pulsePhase = (pulsePhase + 0.06) % (Math.PI * 2);
+
+            // Si hay un destino seleccionado en el dropdown (Tipo 2), dibujar línea tentativa
+            if (currentMission && currentMission.type === 2 && gameState.selectedLocationId) {
+                const chosenLoc = LOCATIONS.find(l => l.id === gameState.selectedLocationId);
+                if (chosenLoc) {
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(251, 191, 36, 0.65)';
+                    ctx.lineWidth = 2.5;
+                    ctx.setLineDash([6, 6]);
+                    ctx.beginPath();
+                    ctx.moveTo(currentMission.origin.x, currentMission.origin.y);
+                    ctx.lineTo(chosenLoc.x, chosenLoc.y);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            LOCATIONS.forEach(loc => {
+                drawLocationElement(loc, currentMission);
+            });
+
+            // 6. Dibujar la Regla Virtual Graduada
+            if (ruler.active) {
+                drawVirtualRuler();
+            }
+
+            // 7. Dibujar animación del mensajero escolar
+            if (gameState.isAnimatingMessenger && gameState.messengerAnim) {
+                drawMessengerAnimation();
+            }
+
+            ctx.restore();
+        }
+
+        /**
+         * Dibuja cada ubicación con su arquitectura distintiva e ícono claro
+         */
+        function drawLocationElement(loc, currentMission) {
+            const isOrigin = currentMission && currentMission.origin.id === loc.id;
+            const isTarget = currentMission && currentMission.type !== 2 && currentMission.target.id === loc.id;
+            const isSelected = gameState.selectedLocationId === loc.id;
+
+            ctx.save();
+
+            // Dibujos arquitectónicos especiales según el lugar
+            if (loc.id === 'cancha') {
+                // Cancha de Fútbol de Pasto Sintético (rectángulo verde con líneas blancas)
+                const w = 96, h = 58;
+                ctx.fillStyle = '#0f5132';
+                ctx.strokeStyle = '#4ade80';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(loc.x - w / 2, loc.y - h / 2, w, h, 6);
+                ctx.fill();
+                ctx.stroke();
+
+                // Líneas internas de cancha
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+                ctx.lineWidth = 1.2;
+                ctx.strokeRect(loc.x - w / 2 + 5, loc.y - h / 2 + 5, w - 10, h - 10);
+                // Línea de medio campo y círculo central
+                ctx.beginPath();
+                ctx.moveTo(loc.x, loc.y - h / 2 + 5);
+                ctx.lineTo(loc.x, loc.y + h / 2 - 5);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(loc.x, loc.y, 10, 0, Math.PI * 2);
+                ctx.stroke();
+            } else if (loc.id === 'foro') {
+                // El Foro (escenario semicircular)
+                ctx.fillStyle = 'rgba(244, 114, 182, 0.16)';
+                ctx.strokeStyle = '#f472b6';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(loc.x, loc.y + 8, 34, Math.PI, 0, false);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Gradas internas
+                ctx.strokeStyle = 'rgba(244, 114, 182, 0.45)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(loc.x, loc.y + 8, 22, Math.PI, 0, false);
+                ctx.stroke();
+            } else if (loc.id === 'biblioteca') {
+                // La Biblioteca (edificio con estanterías)
+                const w = 74, h = 50;
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
+                ctx.strokeStyle = '#34d399';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(loc.x - w / 2, loc.y - h / 2, w, h, 8);
+                ctx.fill();
+                ctx.stroke();
+            } else {
+                // Módulos arquitectónicos para Oficinas y Salones
+                const w = 68, h = 44;
+                ctx.fillStyle = loc.type === 'office' || loc.type === 'tech'
+                    ? 'rgba(245, 158, 11, 0.12)'
+                    : 'rgba(56, 189, 248, 0.12)';
+                ctx.strokeStyle = loc.color;
+                ctx.lineWidth = 1.8;
+                ctx.beginPath();
+                ctx.roundRect(loc.x - w / 2, loc.y - h / 2, w, h, 8);
+                ctx.fill();
+                ctx.stroke();
+            }
+
+            // Anillos pulsantes de Origen, Destino o Selección
+            if (isOrigin || isTarget || isSelected) {
+                const ringRadius = 24 + Math.sin(pulsePhase) * 4;
+                ctx.strokeStyle = isOrigin ? '#10b981' : '#fbbf24';
+                ctx.lineWidth = 2.8;
+                ctx.beginPath();
+                ctx.arc(loc.x, loc.y, ringRadius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Punto exacto central de medición (nodo de precisión)
+            ctx.fillStyle = isOrigin ? '#10b981' : (isTarget || isSelected ? '#fbbf24' : '#ffffff');
+            ctx.beginPath();
+            ctx.arc(loc.x, loc.y, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#051021';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Ícono distintivo encima del módulo
+            drawLocationIcon(loc);
+
+            // Etiqueta de nombre y rol debajo del nodo
+            ctx.font = '700 11px "Inter", sans-serif';
+            const labelText = loc.shortName;
+            const textMetrics = ctx.measureText(labelText);
+            const padX = 7;
+            const boxW = textMetrics.width + padX * 2;
+            const boxH = 19;
+            const boxY = loc.y + 26;
+
+            ctx.fillStyle = 'rgba(5, 16, 33, 0.9)';
+            ctx.strokeStyle = isOrigin ? '#10b981' : (isTarget || isSelected ? '#fbbf24' : 'rgba(56, 189, 248, 0.45)');
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(loc.x - boxW / 2, boxY, boxW, boxH, 5);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = isOrigin ? '#6ee7b7' : (isTarget || isSelected ? '#fde68a' : '#f1f5f9');
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(labelText, loc.x, boxY + boxH / 2);
+
+            ctx.restore();
+        }
+
+        /**
+         * Dibuja un ícono vectorial limpio para cada tipo de espacio escolar
+         */
+        function drawLocationIcon(loc) {
+            ctx.save();
+            ctx.translate(loc.x, loc.y - 16);
+            ctx.strokeStyle = loc.color;
+            ctx.fillStyle = loc.color;
+            ctx.lineWidth = 1.6;
+
+            if (loc.id === 'miss_lulu') {
+                // Estrella de Dirección
+                ctx.beginPath();
+                for (let i = 0; i < 5; i++) {
+                    const outerAngle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+                    const innerAngle = outerAngle + Math.PI / 5;
+                    const rOut = 7, rIn = 3.2;
+                    if (i === 0) ctx.moveTo(Math.cos(outerAngle) * rOut, Math.sin(outerAngle) * rOut);
+                    else ctx.lineTo(Math.cos(outerAngle) * rOut, Math.sin(outerAngle) * rOut);
+                    ctx.lineTo(Math.cos(innerAngle) * rIn, Math.sin(innerAngle) * rIn);
+                }
+                ctx.closePath();
+                ctx.fill();
+            } else if (loc.id === 'teacher_tono') {
+                // Portapapeles de Coordinación
+                ctx.strokeRect(-5, -6, 10, 12);
+                ctx.fillRect(-2.5, -8, 5, 2.5);
+            } else if (loc.id === 'charly') {
+                // Laptop de Sistemas
+                ctx.strokeRect(-6, -6, 12, 8);
+                ctx.beginPath();
+                ctx.moveTo(-8, 3);
+                ctx.lineTo(8, 3);
+                ctx.stroke();
+            } else if (loc.id === 'biblioteca') {
+                // Libro abierto
+                ctx.beginPath();
+                ctx.moveTo(0, -4);
+                ctx.lineTo(-7, -6);
+                ctx.lineTo(-7, 4);
+                ctx.lineTo(0, 6);
+                ctx.lineTo(7, 4);
+                ctx.lineTo(7, -6);
+                ctx.closePath();
+                ctx.stroke();
+            } else if (loc.id === 'cancha') {
+                // Balón / Círculo deportivo
+                ctx.beginPath();
+                ctx.arc(0, -2, 5.5, 0, Math.PI * 2);
+                ctx.stroke();
+            } else if (loc.id === 'foro') {
+                // Arco de escenario
+                ctx.beginPath();
+                ctx.arc(0, 2, 6, Math.PI, 0);
+                ctx.stroke();
+            } else {
+                // Número de salón (505, 506, 507, 508)
+                const num = loc.name.replace('Salón ', '');
+                ctx.font = '700 10px "Chakra Petch", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(num, 0, -1);
+            }
+            ctx.restore();
+        }
+
+        /**
+         * Dibuja la Regla Virtual Graduada con marcas cada 0.5 cm y 1.0 cm
+         */
+        function drawVirtualRuler() {
+            const dx = ruler.endX - ruler.startX;
+            const dy = ruler.endY - ruler.startY;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 2) return;
+
+            const angle = Math.atan2(dy, dx);
+            const cmVal = (dist / UNITS_PER_CM).toFixed(1);
+
+            ctx.save();
+            ctx.translate(ruler.startX, ruler.startY);
+            ctx.rotate(angle);
+
+            // Cuerpo semitransparente de la regla arquitectónica
+            const rulerHeight = 24;
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.24)';
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.roundRect(0, -rulerHeight / 2, dist, rulerHeight, 4);
+            ctx.fill();
+            ctx.stroke();
+
+            // Línea central de medición
+            ctx.strokeStyle = '#fef08a';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(dist, 0);
+            ctx.stroke();
+
+            // Marcas graduadas cada 0.5 cm (25 px) y 1.0 cm (50 px)
+            const stepHalfCm = UNITS_PER_CM / 2;
+            for (let d = 0; d <= dist; d += stepHalfCm) {
+                const isFullCm = Math.round(d % UNITS_PER_CM) === 0;
+                const tickH = isFullCm ? 10 : 5;
+                ctx.strokeStyle = isFullCm ? '#ffffff' : '#fcd34d';
+                ctx.lineWidth = isFullCm ? 1.6 : 1.1;
+
+                ctx.beginPath();
+                ctx.moveTo(d, -rulerHeight / 2);
+                ctx.lineTo(d, -rulerHeight / 2 + tickH);
+                ctx.stroke();
+
+                if (isFullCm && d > 0) {
+                    ctx.save();
+                    ctx.translate(d, 5);
+                    if (Math.abs(angle) > Math.PI / 2) ctx.rotate(Math.PI);
+                    ctx.fillStyle = '#fef9c3';
+                    ctx.font = '700 9px "Chakra Petch", sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`${Math.round(d / UNITS_PER_CM)}`, 0, 0);
+                    ctx.restore();
+                }
+            }
+
+            ctx.restore();
+
+            // Etiqueta flotante con la medida exacta en cm
+            const midX = (ruler.startX + ruler.endX) / 2;
+            const midY = (ruler.startY + ruler.endY) / 2 - 22;
+
+            ctx.save();
+            ctx.fillStyle = '#051021';
+            ctx.strokeStyle = '#fbbf24';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.roundRect(midX - 34, midY - 12, 68, 24, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.font = '700 13px "Chakra Petch", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`${cmVal} cm`, midX, midY);
+            ctx.restore();
+        }
+
+        /**
+         * Anima el desplazamiento del mensajero escolar por el campus
+         */
+        function drawMessengerAnimation() {
+            const anim = gameState.messengerAnim;
+            anim.progress = Math.min(1, anim.progress + 0.025);
+
+            const targetX = anim.fromX + (anim.toX - anim.fromX) * anim.stopRatio;
+            const targetY = anim.fromY + (anim.toY - anim.fromY) * anim.stopRatio;
+
+            const currX = anim.fromX + (targetX - anim.fromX) * anim.progress;
+            const currY = anim.fromY + (targetY - anim.fromY) * anim.progress;
+
+            ctx.save();
+            // Estela de recorrido
+            ctx.strokeStyle = anim.success ? '#10b981' : '#f43f5e';
+            ctx.lineWidth = 3.5;
+            ctx.setLineDash([6, 4]);
+            ctx.beginPath();
+            ctx.moveTo(anim.fromX, anim.fromY);
+            ctx.lineTo(currX, currY);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Ícono del mensajero
+            ctx.fillStyle = anim.success ? '#10b981' : '#f43f5e';
+            ctx.beginPath();
+            ctx.arc(currX, currY, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawArchitectNorth(x, y, r) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.moveTo(0, -r + 3);
+            ctx.lineTo(5, 3);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(-5, 3);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = '700 10px "Chakra Petch", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('N', 0, -r - 4);
+            ctx.restore();
+        }
+
+        function animationLoop() {
+            drawCampusBlueprint();
+            requestAnimationFrame(animationLoop);
+        }
+
+        window.onload = function () {
+            resizeCanvas();
+            animationLoop();
+        };
+    </script>
+</body>
+</html>
